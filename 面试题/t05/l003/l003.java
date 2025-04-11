@@ -6,17 +6,16 @@ public class l003 {
         int never = 0;
         int once = 0;
         int max = 0;
-        for (int i = 0;i < 32;i++) {
-            if ((num & (1 << i)) == 1) {
+        for (int i = 0;i++ < 32;num >>= 1) {
+            if ((num & 1) == 1) {
                 never++;
-                once++;
             }
             else {
-                once = never+1;
+                once = never;
                 never = 0;
             }
-            max = Math.max(max, once);
+            max = Math.max(max, once+never+1);
         }
-        return never == once ? max + 1 : max;
+        return max == 33 ? 32 : max;
     }
 }
