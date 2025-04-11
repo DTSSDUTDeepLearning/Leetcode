@@ -1,22 +1,17 @@
 package MianShiTi.t08.l007;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 
 public class l007 {
-
     char[] cs;
     int len;
     List<String> result;
-    char[] cl;
-    boolean[] flag;
 
     public String[] permutation(String S) {
         cs = S.toCharArray();
         len = cs.length;
-        result = new LinkedList<>();
-        cl = new char[len];
-        flag = new boolean[len];
+        result = new ArrayList<>();
         dfs(0);
         len = result.size();
         String[] res = new String[len];
@@ -26,18 +21,21 @@ public class l007 {
         return res;
     }
 
-    public void dfs(int index) {
-        if (index == len) {
-            result.add(String.valueOf(cl));
+    private void dfs(int index) {
+        if (index == len-1) {
+            result.add(String.valueOf(cs));
             return;
         }
-        for (int i = 0;i < len;i++) {
-            if (!flag[i]) {
-                flag[i] = true;
-                cl[index] = cs[i];
-                dfs(index+1);
-                flag[i] = false;
-            }
+        for (int i = index;i < len;i++) {
+            swap(index, i);
+            dfs(index+1);
+            swap(index, i);
         }
+    }
+
+    private void swap(int i, int j) {
+        char tmp = cs[i];
+        cs[i] = cs[j];
+        cs[j] = tmp;
     }
 }
